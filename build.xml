@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="testing" default="build" >
+ <target name="build" depends="prepare,clean,vendors,lint"/>
+
+ <target name="clean" description="Cleanup build artifacts">
+  <delete dir="${basedir}/build/api"/>
+  <delete dir="${basedir}/build/code-browser"/>
+  <delete dir="${basedir}/build/coverage"/>
+  <delete dir="${basedir}/build/logs"/>
+  <delete dir="${basedir}/build/pdepend"/>
+ </target>
+
+ <target name="prepare" depends="clean" description="Prepare for build">
+  <mkdir dir="${basedir}/build/api"/>
+  <mkdir dir="${basedir}/build/code-browser"/>
+  <mkdir dir="${basedir}/build/coverage"/>
+  <mkdir dir="${basedir}/build/logs"/>
+  <mkdir dir="${basedir}/build/pdepend"/>
+  <mkdir dir="${basedir}/build/phpdox"/>
+  <mkdir dir="${basedir}/output"/>
+ </target>
+
+ <target name="vendors" description="Update vendors">
+   <exec executable="/usr/local/bin/composer" failonerror="true">
+      <arg value="install" />
+   </exec>
+ </target>
+
+<target name="fixcs" description="Fix CS warnings">
+   <exec executable="php-cs-fixer.phar" failonerror="false">
+      <arg line="fix ${basedir}" />
+   </exec>
+ </target>
+
+ <target name="lint" description="Perform syntax check of sourcecode files">
+  <apply executable="php" failonerror="true">
+   <arg value="-l"/>
+
+   <fileset dir="${basedir}">
+    <include name="**/*.php"/>
+    <exclude name="**/vendor/**"/>
+    <modified/>
+   </fileset>
+
+   <!--fileset dir="${basedir}/tests">
+    <include name="**/*.php"/>
+    <modified/>
+   </fileset-->
+  </apply>
+ </target>
+
+<target name="phpcs-ci" description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
+    <exec executable="/usr/local/bin/phpcheckstyle/run.php">
+        <arg line="--src ${basedir}" />
+        <arg line="--format xml" />
+        <arg line="--config epiphany-symfony.cfg.xml" />
+        <arg line="--outdir ${basedir}/build/logs/" />
+    </exec>
+</target>
+
+<target name="phpmd"
+        description="Perform project mess detection using PHPMD">
+    <exec executable="phpmd">
+      <arg path="${basedir}" />
+      <arg value="xml" />
+      <arg value="${basedir}/build/phpmd.xml" />
+      <arg value="--reportfile" />
+      <arg value="${basedir}/build/logs/pmd.xml" />
+    </exec>
+</target>
+
+ <target name="test" description="Run unit tests with PHPUnit">
+  <exec executable="phpunit" failonerror="true">
+    <arg line="-d memory_limit=512M --coverage-clover ${basedir}/build/coverage/clover.xml --coverage-html ${basedir}/build/coverage/ -c ${basedir}/phpunit.xml --log-junit ${basedir}/build/logs/phpunit.xml"/>
+  </exec>
+ </target>
+
+
+</project>
