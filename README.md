@@ -16,8 +16,8 @@ This assumes you're working with a Symfony2 (v2.3) application, and using compos
 
 There are four steps required to use this bundle.
 
-1. Add this package to your composer.json file and run a *composer update*
-2. Update your application's *app/autoload.php* file to include a call to ProxyGenerator::registerNamespace(), as below, so the application can load proxy classes
+* Add this package to your composer.json file and run a *composer update*
+* Update your application's *app/autoload.php* file to include a call to ProxyGenerator::registerNamespace(), as below, so the application can load proxy classes
 
 ```php
 
@@ -30,7 +30,7 @@ ProxyGenerator::registerNamespace($loader,__DIR__);
 return $loader;
 ```
 
-3. Tag any services you want to register for caching, and tag a service which implements the *Epiphany\ServiceCacheBundle\Cache\ServiceCacheInterface*. This should be done in your *service.yml/xml* files
+* Tag any services you want to register for caching, and tag a service which implements the *Epiphany\ServiceCacheBundle\Cache\ServiceCacheInterface*. This should be done in your *service.yml/xml* files
 
 ```yml
 services:
@@ -51,7 +51,7 @@ services:
             - { name: epiphany_service_cache.cache}
 ```
 
-4. Annotate any services you want to cache..
+* Annotate any services you want to cache..
 
 ```php
 class WeatherDataService
