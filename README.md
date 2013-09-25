@@ -16,7 +16,7 @@ This assumes you're working with a Symfony2 (v2.3) application, and using compos
 
 There are four steps required to use this bundle.
 
-* Add this package to your composer.json file and run a *composer update*
+* Add this package to your composer.json file and run a *composer update*, add the package to you AppKernel
 * Update your application's *app/autoload.php* file to include a call to ProxyGenerator::registerNamespace(), as below, so the application can load proxy classes
 
 ```php

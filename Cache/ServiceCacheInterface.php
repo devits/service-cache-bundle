@@ -9,9 +9,10 @@ interface ServiceCacheInterface {
      * @param string  $key
      * @param array   $data    associative array
      * @param integer $expires data expires after n seconds (never expires if zero) 
+     * @param array   $meta    meta data, param name/values from original method call  
      * @param array   $options additional name/value pairs 
      */
-    public function setDataForKey($key, $data, $expires = 0, array $options = null);
+    public function setDataForKey($key, $data, $expires = 0, array $meta, array $options = null);
 
     /**
      * getDataForKey

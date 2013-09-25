@@ -289,7 +289,7 @@ class ProxyGenerator
                     \$this->logger->info('Storing data for key: [' . \$key . ']');
                     
                     try{
-                        \$this->serviceCache->setDataForKey(\$key, \$data, $expires, $optionsArrayString);
+                        \$this->serviceCache->setDataForKey(\$key, \$data, $expires, \$meta, $optionsArrayString);
                     }
                     catch(\\Exception \$e) {
 
