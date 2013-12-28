@@ -1,5 +1,5 @@
 {
-    "name": "epiphany/service-cache-bundle",
+    "name": "devits/service-cache-bundle",
     "type": "symfony-bundle",
     "description": "Cache or store responses from a Symfony2 service by annotating its methods",
     "keywords": [ "cache", "symfony2", "service", "container"],
@@ -14,10 +14,10 @@
     "require": {
         "php": ">=5.3.0",
         "symfony/symfony": "2.3.*",
-        "symfony/monolog-bundle": "2.3.*"
+        "symfony/monolog-bundle": "2.4.*"
     },
     "require-dev": {
-        "symfony/framework-bundle": "2.3.*"
+        "symfony/framework-bundle": "2.4.*"
     },
     "autoload": {
         "psr-0": {
